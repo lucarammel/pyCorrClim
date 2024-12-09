@@ -1,5 +1,15 @@
+from corrclim.smoother import MultiSmoother, Smoother
+
+
 class TimeseriesModel:
-    def __init__(self, formula, by_instant=False, granularity=None, smoothers=None, **kwargs):
+    def __init__(
+        self,
+        formula,
+        by_instant: bool = False,
+        granularity: str = None,
+        smoothers: Smoother | MultiSmoother = None,
+        **kwargs,
+    ):
         self.formula = Formula(formula)
         self.model = None
         self.smoothers = smoothers

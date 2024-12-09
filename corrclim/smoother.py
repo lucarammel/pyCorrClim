@@ -7,7 +7,7 @@ from sklearn.model_selection import ParameterGrid
 
 
 class Smoother:
-    def __init__(self, time_column="time", value_column=None):
+    def __init__(self, time_column: str = "time", value_column: str = None):
         self.time_column = time_column
         self.value_column = value_column
         self.status = 0
