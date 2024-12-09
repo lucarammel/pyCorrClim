@@ -1,0 +1,33 @@
+[project]
+name = "corrclim"
+version = "0.1.0"
+description = "A toolbox for facilitating climatic correction of timeseries and the implementation of new models."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=2.0.2",
+    "pandas>=2.2.3",
+    "polars>=1.17.1",
+    "ruff>=0.8.2",
+    "scikit-learn>=1.6.0",
+    "scipy>=1.13.1",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple/"
+
+[[tool.uv.index]]
+url = "https://artifactory.artelys.com/artifactory/api/pypi/pypi-artelys/simple"
+default = true
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = false
+packages.find.include = ["mysql2pg*"]
+
+[tool.ruff]
+line-length=100
+
