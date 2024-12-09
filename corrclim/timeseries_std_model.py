@@ -1,6 +1,6 @@
 import numpy as np
 
-from corrclim.timeseries_model import TimeseriesModel
+from corrclim.timeseries_model.timeseries_model import TimeseriesModel
 
 
 class TimeseriesStdModel(TimeseriesModel):

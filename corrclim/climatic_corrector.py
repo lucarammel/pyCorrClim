@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from corrclim.operator import OperatorAdditive
-from corrclim.timeseries_model import TimeseriesModel
+from corrclim.timeseries_model.timeseries_model import TimeseriesModel
 from corrclim.timeseries_std_model import TimeseriesStdModel
 
 
