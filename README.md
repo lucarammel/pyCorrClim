@@ -2,6 +2,8 @@
 
 A **toolbox** for facilitating climatic correction of timeseries and the implementation of new models.
 
+WIP ..
+<!-- 
 ## Table of Contents
 
 1. **Installation**
@@ -26,7 +28,7 @@ A **toolbox** for facilitating climatic correction of timeseries and the impleme
 
 ```bash 
 git clone https://github.com/lucarammel/pycorrclim.git
-```
+``` -->
 <!-- 
 ## See what's new 
 
@@ -35,7 +37,7 @@ git clone https://github.com/lucarammel/pycorrclim.git
 ## Architecture
 
 Find [here](/docs/architecture.md) the architecture of the repo to make it clear for you what's happening here !  -->
-
+<!-- 
 ## How to use it
 
 #### Concepts
@@ -46,7 +48,7 @@ The **CorrClim** package is built on multiple objects. It enables to keep the sa
 - [`Operator`](corrclim/R/operator.py) : This class would define operators used in the climate correction process. Operators could be mathematical (e.g., addition, multiplication) or more complex analytical operations
 - [`Smoother`](corrclim/R/smoother.py) : The Smoother class would specialize in data smoothing techniques, which are crucial for preparing climate data for analysis and correction.
 - [`TimeseriesModel`](corrclim/R/timeseries_model.py) : This class would be dedicated to modeling time series data, particularly for forecasting or identifying trends within climate data. 
-- [`ClimaticCorrector`](corrclim/R/climatic_corrector.py) : Finally, the ClimaticCorrector class would act as the orchestrator of the climate correction process, utilizing the other classes to perform comprehensive climate data correction.
+- [`ClimaticCorrector`](corrclim/R/climatic_corrector.py) : Finally, the ClimaticCorrector class would act as the orchestrator of the climate correction process, utilizing the other classes to perform comprehensive climate data correction. -->
 <!-- 
 ## Global objects workflow 
 

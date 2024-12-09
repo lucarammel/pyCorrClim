@@ -2,8 +2,10 @@ import pandas as pd
 from patsy import dmatrices
 from pygam import LinearGAM, s
 
+from corrclim.timeseries_model.timeseries_model import TimeseriesModel
 
-class GAM:
+
+class GAM(TimeseriesModel):
     def __init__(
         self,
         formula="y ~ s(temperature) + s(posan) + jour_semaine + jour_ferie + ponts",

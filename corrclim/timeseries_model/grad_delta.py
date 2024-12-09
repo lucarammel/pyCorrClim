@@ -40,7 +40,7 @@ class GradDelta(TimeseriesModel):
             )
 
     def fit_fun(self, X):
-        X = self._get_timeseries(X)
+        X = X._get_timeseries()
 
         if self.granularity == "instant":
             X = X.groupby("instant").apply(self._fit_and_extract_coefs)
@@ -49,13 +49,6 @@ class GradDelta(TimeseriesModel):
 
         self.gradients = X
         return self.gradients
-
-    def _get_timeseries(self, X):
-        # Assuming X is a DataFrame, ensure it's in the right format
-        if isinstance(X, pd.DataFrame):
-            return X
-        else:
-            raise TypeError("X must be a pandas DataFrame.")
 
     def _fit_and_extract_coefs(self, data):
         model = self._linear_model(data)
@@ -80,7 +73,7 @@ class GradDelta(TimeseriesModel):
         return self.formula.split("~")[1].strip().split()
 
     def predict_fun(self, model, X):
-        X = self._get_timeseries(X)
+        X = X._get_timeseries()
         vars_ = self._get_explanatory_variables()
         X = X.merge(model, on="instant", suffixes=("", "_grad"))
 
