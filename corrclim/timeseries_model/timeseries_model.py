@@ -1,3 +1,5 @@
+from loguru import logger
+
 from corrclim.smoother import MultiSmoother, Smoother
 from corrclim.timeseries_dt import TimeseriesDT
 

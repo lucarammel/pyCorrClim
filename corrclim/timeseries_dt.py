@@ -1,3 +1,5 @@
+import pickle
+
 import numpy as np
 import pandas as pd
 
@@ -276,16 +278,11 @@ class TimeseriesDT:
         if as_data_table:
             if file_format == "csv":
                 self.timeseries.to_csv(path, index=False)
-            elif file_format == "rds":
-                import pyreadr
-
-                pyreadr.write_rds(path, {"timeseries": self.timeseries})
+            elif file_format == "parquet":
+                self.timeseries.to_parquet(path)
             else:
-                raise ValueError("Format not supported. Please use 'csv' or 'rds'.")
+                NotImplementedError("Format not supported")
         else:
-            # Export the whole object using pickle
-            import pickle
-
             with open(path, "wb") as f:
                 pickle.dump(self, f)
 

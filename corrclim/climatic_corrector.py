@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 
 from loguru import logger
 
@@ -12,7 +11,7 @@ from corrclim.timeseries_std_model import TimeseriesStdModel
 @dataclass
 class ClimaticCorrector:
     timeseries_model: TimeseriesModel
-    timeseries_std_model: Optional[TimeseriesStdModel] = None
+    timeseries_std_model: TimeseriesStdModel | None
     operator: Operator = OperatorAdditive()
 
     def __post_init__(self):
