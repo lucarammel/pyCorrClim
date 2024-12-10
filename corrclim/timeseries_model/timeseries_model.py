@@ -1,4 +1,5 @@
 from corrclim.smoother import MultiSmoother, Smoother
+from corrclim.timeseries_dt import TimeseriesDT
 
 
 class TimeseriesModel:

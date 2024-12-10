@@ -4,7 +4,8 @@ from statsmodels.regression.glm import GLM
 from statsmodels.robust.robust_linear_model import RLM
 from statsmodels.tools import add_constant
 
-from corrclim.timeseries_model import TimeseriesModel
+from corrclim.timeseries_dt import TimeseriesDT
+from corrclim.timeseries_model.timeseries_model import TimeseriesModel
 
 
 class GradDelta(TimeseriesModel):
@@ -39,8 +40,8 @@ class GradDelta(TimeseriesModel):
                 "Linear model not supported. Choose 'robust', 'least squares', or 'ridge'."
             )
 
-    def fit_fun(self, X):
-        X = X._get_timeseries()
+    def fit_fun(self, X: TimeseriesDT):
+        X = X.get_timeseries()
 
         if self.granularity == "instant":
             X = X.groupby("instant").apply(self._fit_and_extract_coefs)
@@ -72,8 +73,8 @@ class GradDelta(TimeseriesModel):
     def _get_explanatory_variables(self):
         return self.formula.split("~")[1].strip().split()
 
-    def predict_fun(self, model, X):
-        X = X._get_timeseries()
+    def predict_fun(self, model, X: TimeseriesDT):
+        X = X.get_timeseries()
         vars_ = self._get_explanatory_variables()
         X = X.merge(model, on="instant", suffixes=("", "_grad"))
 

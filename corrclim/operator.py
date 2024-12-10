@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 import numpy as np
 import pandas as pd
 
+from corrclim.timeseries_dt import TimeseriesDT
+
 
 # Abstract Base Operator
 class Operator(ABC):

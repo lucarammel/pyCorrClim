@@ -2,6 +2,7 @@ import pandas as pd
 from patsy import dmatrices
 from pygam import LinearGAM, s
 
+from corrclim.timeseries_dt import TimeseriesDT
 from corrclim.timeseries_model.timeseries_model import TimeseriesModel
 
 
@@ -28,7 +29,7 @@ class GAM(TimeseriesModel):
         else:
             self.model = None
 
-    def fit_fun(self, X):
+    def fit_fun(self, X: TimeseriesDT):
         """
         Fit the model to the timeseries data.
 
@@ -57,7 +58,7 @@ class GAM(TimeseriesModel):
         """Extracts explanatory variables from the formula"""
         return self.formula.split("~")[1].strip().split(" + ")
 
-    def predict_fun(self, X):
+    def predict_fun(self, X: TimeseriesDT):
         """
         Predict using the fitted model.
 
