@@ -47,7 +47,7 @@ class TimeseriesModel:
         return X
 
     def fit(self, outputs, inputs):
-        print(f"Fitting the model {type(self).__name__} ...")
+        logger.info(f"Fitting the model {type(self).__name__} ...")
 
         outputs = TimeseriesDT(outputs, is_output=True)
         inputs = TimeseriesDT(inputs)
@@ -61,12 +61,12 @@ class TimeseriesModel:
         self.model = self.fit_fun(self.model, X)
         self._set_status(1)
 
-        print("Model fitted!")
+        logger.info("Model fitted!")
 
     def predict(self, X):
         if self._status < 1:
             raise ValueError("Please fit the model first using the fit() method.")
-        print(f"Predicting using the model {type(self).__name__} ...")
+        logger.info(f"Predicting using the model {type(self).__name__} ...")
 
         X = TimeseriesDT(X)
         X = self.check_timeseries(X, is_fitting=False)

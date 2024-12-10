@@ -1,4 +1,5 @@
 import numpy as np
+from loguru import logger
 
 from corrclim.timeseries_model.timeseries_model import TimeseriesModel
 
@@ -32,7 +33,7 @@ class TimeseriesStdModel(TimeseriesModel):
         :param inputs: The input data with data for both conditional expectation and conditional variance models
         :param fold_varname: The name of the variable in `inputs` to define CV folds
         """
-        print("Fitting the TimeseriesStd Model.")
+        logger.info("Fitting the TimeseriesStd Model.")
 
         # Assuming TimeseriesDT is a custom class, we will use pandas for this example
         if fold_varname not in inputs.columns:
@@ -40,7 +41,7 @@ class TimeseriesStdModel(TimeseriesModel):
                 "You need to provide the variable defining CV folds inside the input timeseries"
             )
 
-        print("Performing a Cross Validation prediction with conditional expectation model")
+        logger.info("Performing a Cross Validation prediction with conditional expectation model")
 
         # Using the cv_predict method of the conditional expectation model
         output_cv_pred = self.conditional_expectation_model.cv_predict(
@@ -50,7 +51,7 @@ class TimeseriesStdModel(TimeseriesModel):
 
         outputs["y"] = output_cv_residual_sqrd
 
-        print("Fitting now using the residuals squared")
+        logger.info("Fitting now using the residuals squared")
         super().fit(outputs, inputs)
 
     def predict(self, inputs):

@@ -1,6 +1,7 @@
 from typing import Callable, Optional
 
 import pandas as pd
+from loguru import logger
 from scipy.optimize import minimize
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import ParameterGrid
@@ -171,7 +172,7 @@ class MultiSmoother(Smoother):
         :param y: The response timeseries to compare with
         """
         for i, smoother in enumerate(self.smoothers):
-            print(f"Fitting using {type(smoother).__name__} ..")
+            logger.info(f"Fitting using {type(smoother).__name__} ..")
 
             X = timeseries[["time", self.variables[i]]]
             smoother.fit(X, y)
@@ -186,7 +187,7 @@ class MultiSmoother(Smoother):
         smoothed_timeseries = timeseries.copy()
 
         for i, smoother in enumerate(self.smoothers):
-            print(f"Smoothing using {type(smoother).__name__} on {self.variables[i]}..")
+            logger.info(f"Smoothing using {type(smoother).__name__} on {self.variables[i]}..")
 
             X = timeseries[["time", self.variables[i]]]
             smoothed_data = smoother.smooth(X)

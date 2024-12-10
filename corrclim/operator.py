@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 import pandas as pd
+from loguru import logger
 
 from corrclim.timeseries_dt import TimeseriesDT
 
@@ -25,7 +26,7 @@ class Operator(ABC):
         :param y_std_target: (array-like) Standard deviation on target weather (optional).
         :return: (TimeseriesDT) Climate-corrected timeseries.
         """
-        print(f"Applying {self.__class__.__name__} for climate correction.")
+        logger.info(f"Applying {self.__class__.__name__} for climate correction.")
         timeseries = TimeseriesDT(timeseries.get_timeseries())
         return self.apply_fun(
             timeseries, y_pred_observed, y_pred_target, y_std_observed, y_std_target

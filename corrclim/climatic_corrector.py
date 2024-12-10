@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from corrclim.operator import OperatorAdditive
+from loguru import logger
+
+from corrclim.operator import Operator, OperatorAdditive
+from corrclim.timeseries_dt import TimeseriesDT
 from corrclim.timeseries_model.timeseries_model import TimeseriesModel
 from corrclim.timeseries_std_model import TimeseriesStdModel
 
@@ -10,15 +13,13 @@ from corrclim.timeseries_std_model import TimeseriesStdModel
 class ClimaticCorrector:
     timeseries_model: TimeseriesModel
     timeseries_std_model: Optional[TimeseriesStdModel] = None
-    operator: Optional[OperatorAdditive] = None
+    operator: Operator = OperatorAdditive()
 
     def __post_init__(self):
         if not isinstance(self.timeseries_model, TimeseriesModel):
             raise ValueError(
                 "Climatic model given is not of type TimeseriesModel. Please provide a valid timeseries_model."
             )
-
-        self.operator = self.operator or OperatorAdditive()
 
         if self.timeseries_std_model:
             if not isinstance(self.timeseries_std_model, TimeseriesStdModel):
@@ -39,7 +40,7 @@ class ClimaticCorrector:
         self.timeseries_model.fit(timeseries, weather_observed)
 
     def apply(self, timeseries, weather_observed, weather_target):
-        print("Applying the Climate Correction...")
+        logger.info("Applying the Climate Correction...")
 
         timeseries = TimeseriesDT(timeseries, is_output=True)
         weather_observed = TimeseriesDT(weather_observed)
@@ -47,17 +48,17 @@ class ClimaticCorrector:
 
         weather_target, weather_observed = timeseries.align(weather_target, weather_observed)
 
-        print("Prediction on the target:")
+        logger.info("Prediction on the target:")
         y_pred_target = self.timeseries_model.predict(weather_target)
 
-        print("Prediction on the observed:")
+        logger.info("Prediction on the observed:")
         y_pred_observed = self.timeseries_model.predict(weather_observed)
 
         if isinstance(self.operator, OperatorAdditive) and self.timeseries_std_model:
-            print("Prediction on the target standard deviation:")
+            logger.info("Prediction on the target standard deviation:")
             y_std_target = self.timeseries_std_model.predict(weather_target)
 
-            print("Prediction on the observed standard deviation:")
+            logger.info("Prediction on the observed standard deviation:")
             y_std_observed = self.timeseries_std_model.predict(weather_observed)
 
             y_climate_corrected = self.operator.apply(
@@ -72,7 +73,7 @@ class ClimaticCorrector:
                 timeseries=timeseries, y_pred_observed=y_pred_observed, y_pred_target=y_pred_target
             )
 
-        print("Climate correction ended.")
+        logger.info("Climate correction ended.")
         return y_climate_corrected
 
     def get_operator(self):
