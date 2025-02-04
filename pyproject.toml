@@ -29,7 +29,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 include-package-data = false
-packages.find.include = ["mysql2pg*"]
+packages.find.include = ["corrclim*"]
 
 [tool.ruff]
 line-length=100
